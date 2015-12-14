@@ -1,0 +1,44 @@
+<div class="jumbotron">
+  <h1>'Allo, 'Allo!</h1>
+  <p class="lead">
+    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
+    Always a pleasure scaffolding your apps.
+  </p>
+  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
+</div>
+
+<div class="row marketing">
+    <div class="panel panel-default">
+        <div class="panel-heading">Interactive Rickshaw graph</div>
+        <div class="panel-body">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label>Renderer</label>
+                    <select class="form-control" ng-model="renderer" ng-options="renderer.name for renderer in renderers" ng-change="rendererChanged()"></select>
+                </div>
+                <div class="form-group">
+                    <label>Palette</label>
+                    <select class="form-control" ng-model="palette" ng-options="palette for palette in palettes" ng-change="paletteChanged()"></select>
+                </div>
+                <div class="form-group">
+                    <label>X axis*</label>
+                    <select class="form-control" ng-model="xAxis" ng-options="xAxis for xAxis in xAxes" ng-change="xAxisChanged()" ng-disabled="xAxisDisabled"></select>
+                </div>
+                <div class="form-group">
+                    <label>Y axis*</label>
+                    <select class="form-control" ng-model="yAxis" ng-options="yAxis for yAxis in yAxes" ng-change="yAxisChanged()" ng-disabled="yAxisDisabled"></select>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="legend" ng-change="legendChanged()"> Legend
+                    </label>
+                </div>
+                <button class="btn btn-primary" ng-click="changeSeriesData()">Change series data</button>
+            </form>
+            <p>* Can only be set once.</p>
+            <rickshaw rickshaw-options="options" rickshaw-features="features" rickshaw-series="series"></rickshaw>
+            {{options}}
+            {{features}}
+            {{series}}
+        </div>
+</div>
