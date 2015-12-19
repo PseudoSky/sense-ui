@@ -2,6 +2,8 @@
 
 This is the client side application used for analysis and visualization of sensor data pulled from the sensor rest api.
 
+Forecasting data on the client side for analytics, and automated anomaly detection. Currently does smoothing and plots against the values. Check the timeseries service for more information.
+
 ![](https://github.com/PseudoSky/sense-ui/blob/master/docs/images/ui.png)
 
 ## References:
