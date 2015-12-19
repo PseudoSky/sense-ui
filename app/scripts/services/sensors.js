@@ -13,13 +13,13 @@ angular.module('senseUiApp')
 				sensors:  ['t','h','p','ch4','lpg','co','lux'],
 				count:7,
 				sensor_labels:{
-					't':'Temperature',
+					't':'Temperature (celcius)',
 					'h':'Humidity',
-					'p':'Pressure',
-					'lpg':'Butane',
-					'ch4':'Methane',
-					'co':'Carbon Monoxide',
-					'lux':'Light'
+					'p':'Pressure (atm)',
+					'lpg':'Butane (lpg)',
+					'ch4':'Methane (ch4)',
+					'co':'Carbon Monoxide (co)',
+					'lux':'Light Intensity'
 				},
 				sensor_inv:{
 					0:'t',

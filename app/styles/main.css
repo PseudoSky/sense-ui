@@ -19,7 +19,16 @@ div, span, p, td {
   float: left;
   position: relative;
 }
-
+.reality{
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
+  margin-bottom: 20px;
+}
+.jumbotron h1, .jumbotron .h1{
+  font-size: 46px;
+}
+.jumbotron p{
+  font-size: 20px;
+}
 /* graph */
 
 .rickshaw_graph {

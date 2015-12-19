@@ -30,7 +30,7 @@ angular.module('senseUiApp')
 			  	$scope.timeseries[k]=new Timeseries(v);
 			  	// bestSettings= $scope.timeseries[k].regression_forecast_optimize();
 
-			  	$scope.linear[k]=$scope.timeseries[k].smoother({period:100}).save('smoothed').sliding_regression_forecast({method: 'ARMaxEntropy', degree: 10, sample: 100}).output();
+			  	$scope.linear[k]=$scope.timeseries[k].smoother({period:10}).save('smoothed').sliding_regression_forecast({method: 'ARMaxEntropy', degree: 10, sample: 20}).output();
 			  	$scope.linear[k]=_($scope.linear[k]).map(function(d){return _.zipObject(['x','y'],d)}).value();
 			  	$scope.linear[k]=_.sortBy(_.map($scope.linear[k],function(d){
 				    		return {x:new Date(d.x).getTime()/1000,y:d.y};
@@ -40,7 +40,7 @@ angular.module('senseUiApp')
 		  	// console.log('TS',$scope.timeseries[k]);
 				return _.takeRight(_.sortBy(_.map(v,function(d){
 				    		return {x:new Date(d.timestamp).getTime()/1000,y:d.value};
-					}),'x'),1500);
+					}),'x'),4000);
 			})
 
 			window.linear=$scope.linear;
@@ -50,8 +50,11 @@ angular.module('senseUiApp')
   	});
 
   	function init(sensor_index){
-
-			var seriesData = angular.copy($scope['series'][sensor_index]);//[ [], [], [] ];
+  		console.log("Base",$scope.sensor_data[Sensors.sensor_inv[sensor_index]]);
+  		console.log("Reg",$scope.linear[Sensors.sensor_inv[sensor_index]]);
+			var seriesData = _.takeRight(_.sortBy(_.map($scope.sensor_data[Sensors.sensor_inv[sensor_index] ],function(d){
+				    		return {x:new Date(d.timestamp).getTime()/1000,y:d.value};
+					}),'x'),4000);//[ [], [], [] ];
 			// var random = new Rickshaw.Fixtures.RandomData(150);
 
 			// for (var i = 0; i < 150; i++) {
@@ -72,17 +75,17 @@ angular.module('senseUiApp')
 			if(seriesData.length>100){
 				sx.push(
 					{
-						color: palette.color(),
-						data: _.take($scope.linear[Sensors.sensor_inv[sensor_index]],seriesData.length),
-						name: Sensors.sensor_labels[sensor_index]+' Moving Average'
+						color: "#c62828",//palette.color(),
+						data: _.takeRight($scope.linear[Sensors.sensor_inv[sensor_index]],seriesData.length),
+						name: Sensors.sensor_labels[sensor_index]+' Forecast'
 					}
 					);
 				console.log('Yay');
 			}
 			var graph = new Rickshaw.Graph( {
 				element: document.getElementById("chart"+sensor_index),
-				width: 600,
-				height: 200,
+				width: 700,
+				height: 300,
 				renderer: 'line',
 				series: sx
 			} );
@@ -117,6 +120,13 @@ angular.module('senseUiApp')
 
 			xAxis.render();
 
+			var yAxis = new Rickshaw.Graph.Axis.Y( {
+				graph: graph,
+				tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+				ticksTreatment: ticksTreatment
+			} );
+
+			yAxis.render();
 		}
 
 		window.init=init;
